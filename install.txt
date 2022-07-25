@@ -1,0 +1,16 @@
+export CUSTOM_USER='/home/licona'
+rm -rf /etc/clash
+sudo cp -r $CUSTOM_USER/.config/clash/ /etc
+sudo touch /etc/systemd/system/clash.service
+sudo echo "
+[Unit]
+Description=clash daemon
+
+[Service]
+Type=simple
+User=root
+ExecStart=/usr/bin/clash -d /etc/clash/
+Restart=on-failure
+
+[Install]
+WantedBy=multi-user.target" > /etc/systemd/system/clash.service

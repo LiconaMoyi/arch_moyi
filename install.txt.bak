@@ -1,0 +1,6 @@
+sudo pacman -Sy xorg-xinit xorg-server awesome xterm
+sudo pacman -Sy terminus-font
+sudo pacman -Sy firefox
+sudo pacman -Sy fcitx-im fcitx-configtool rime
+sudo pacman -Sy expect
+
