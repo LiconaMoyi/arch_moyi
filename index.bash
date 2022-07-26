@@ -41,6 +41,8 @@ esac
 
 expect<<-EOF
 spawn fdisk /dev/$DISK_NAME
+expect "m for help" {send "g\n";}
+
 expect {
 "m for help" {send "n\n";exp_continue}
 "default p" {send "p\n";exp_continue}
@@ -49,7 +51,7 @@ expect {
 "+/-size" {send "+$BOOT_SIZE\n";}
 }
 
-expect "m for help" {send "p\n";send "wq\n";exp_continue}   //p显示已建分区，wq保存配置，注意exp_continue，否则无法继续输入wq
+expect "m for help" {send "p\n";send "wq\n";exp_continue}
 EOF
 # mkdir /data    //新建挂载目录
 # fdisk -l   
