@@ -10,5 +10,5 @@ exit 0
 fi
 echo "install expect to do more"
 sudo pacman -Sy expect
-echo "continue to do other work"
+echo "current Env:"
 echo $SYS_ENV
