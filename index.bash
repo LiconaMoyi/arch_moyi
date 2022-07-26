@@ -8,5 +8,7 @@ if [ $? != "1" ]; then
 echo "please connect to network first"
 exit 0
 fi
+echo "install expect to do more"
+sudo pacman -Sy expect
 echo "continue to do other work"
 echo $SYS_ENV
