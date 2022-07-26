@@ -29,10 +29,12 @@ read FORMAT_SELECTION
 
 case $FORMAT_SELECTION in
     1)
-        echo "111"
+        echo "you choose 1, continue"
         ;;
     2)
-        echo "2222"
+        $BOOT_SIZE="512M"
+        Total=$(cat /proc/meminfo |grep 'MemTotal' |awk -F : '{print $2}' |sed 's/^[ \t]*//g')
+        echo $Total
         ;;
     *)
         echo "error"
