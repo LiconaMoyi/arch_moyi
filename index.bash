@@ -23,13 +23,13 @@ echo "please rerun this shell script"
 exit 0
 fi
 expect<<-EOF
-spawn fdisk /dev/$DISK_NAME               // run process and trace it
+spawn fdisk /dev/$DISK_NAME
 expect {
-"m for help" {sends "n\n";exp_continue}      // capture the output of spawn, and input a string to the process if it matches the expected character
-"default p" {send "p\n";exp_continue}        // n is the new partition, \n is enter, p is the main partition, and then enter
-"default 1" {send "1\n";exp_continue}        // partition number
-"default 2048" {send "\n";exp_continue}      // partition size
-"+/-sizes" {send "+10G\n";exp_continue}
+"m for help" {sends "n\n";exp_continue}
+"default p" {send "p\n";exp_continue}
+"default 1" {send "1\n";exp_continue}
+"default 2048" {send "\n";exp_continue}
+"+/-sizes" {send "+10G\n";}
 }
 
 expect "m for help" {send "p\n";send "wq\n";exp_continue}   //p显示已建分区，wq保存配置，注意exp_continue，否则无法继续输入wq
