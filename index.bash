@@ -23,6 +23,20 @@ echo "please rerun this shell script"
 exit 0
 fi
 
+echo "select the method you want to use to format disk(1:use config file, 2:use the system portion-BOOT:512M,SWAP:memory capacity,
+      HOME:70% remaning,ROOT:30% remaining):"
+read FORMAT_SELECTION
+
+case $FORMAT_SELECTION in
+    1)
+        echo "111"
+        ;;
+    2)
+        echo "2222"
+        ;;
+    *)
+        echo "error"
+esac
 # BOOT_SIZE,SWAP_SIZE,HOME_SIZE,ROOT_SIZE
 
 expect<<-EOF
