@@ -32,9 +32,17 @@ case $FORMAT_SELECTION in
         echo "you choose 1, continue"
         ;;
     2)
-        $BOOT_SIZE="512M"
-        Total=$(cat /proc/meminfo |grep 'MemTotal' |awk -F : '{print $2}' |sed 's/^[ \t]*//g')
-        echo $Total
+        set $BOOT_SIZE="512M"
+        MemTotal=$(cat /proc/meminfo |grep 'MemTotal' |awk -F : '{print $2}' |sed 's/^[ \t]*//g')
+        set $SWAP_SIZE=$MemTotal
+        DISK_SIZE=$(fdisk -l | grep 'Disk /dev/$DISK_NAME' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g')
+        set $HOME_SIZE = $DISK_SIZE * 0.7
+        set $ROOT_SIZE = $DISK_SIZE * 0.3
+        echo "BOOT_SIZE: $BOOT_SIZE,"
+        echo "SWAP_SIZE: $SWAP_SIZE,"
+        echo "HOME_SIZE: $HOME_SIZE,"
+        echo "ROOT_SIZE: $ROOT_SIZE,"
+        sleep 3
         ;;
     *)
         echo "error"
