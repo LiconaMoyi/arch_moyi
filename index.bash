@@ -2,7 +2,7 @@ source utils/base.bash
 network
 if [ $? != "1" ]; then
 # @TODO: try to connnect network
-echo "请先连接到网络"
+echo "please connect to network first"
 exit 0
 fi
-echo "执行虚拟机所要"
+echo "continue to do other work"
