@@ -25,7 +25,7 @@ fi
 expect<<-EOF
 spawn fdisk /dev/$DISK_NAME
 expect {
-"m for help" {sends "n\n";exp_continue}
+"m for help" {send "n\n";exp_continue}
 "default p" {send "p\n";exp_continue}
 "default 1" {send "1\n";exp_continue}
 "default 2048" {send "\n";exp_continue}
