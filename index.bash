@@ -16,8 +16,9 @@ echo "start initialize disk"
 lsblk
 echo "input the disk you want to use"
 read DISK_NAME
-echo "you select $DISK_NAME, are you sure you want to format it?"
-if [ $? != "Y" ]; then
+echo "you select $DISK_NAME, are you sure you want to format it?(Y/N):"
+read FORMAT_STATUS
+if [ $FORMAT_STATUS != "Y" ]; then
 echo "please rerun this shell script"
 exit 0
 fi
