@@ -25,17 +25,17 @@ fi
 expect<<-EOF
 spawn fdisk /dev/$DISK_NAME               // run process and trace it
 expect {
-"get help" {send "n\n";exp_continue}      // capture the output of spawn, and input a string to the process if it matches the expected character
-"default p" {send "p\n";exp_continue}     // N is the new partition, \n is enter, P is the main partition, and then enter
+"m for help" {sends "n\n";exp_continue}      // capture the output of spawn, and input a string to the process if it matches the expected character
+"default p" {send "p\n";exp_continue}        // n is the new partition, \n is enter, p is the main partition, and then enter
 "default 1" {send "1\n";exp_continue}        // partition number
-"default 2048" {send "\n";exp_continue}    // partition size
-"+size" {send "\n"}
+"default 2048" {send "\n";exp_continue}      // partition size
+"+/-sizes" {send "+10G\n";exp_continue}
 }
 
-expect "get help" {send "p\n";send "wq\n";exp_continue}   //p显示已建分区，wq保存配置，注意exp_continue，否则无法继续输入wq
+expect "m for help" {send "p\n";send "wq\n";exp_continue}   //p显示已建分区，wq保存配置，注意exp_continue，否则无法继续输入wq
 EOF
-mkdir /data    //新建挂载目录
-fdisk -l   
-mkfs.xfs /dev/$DISK_NAME   //格式化
-mount /dev/$DISK_NAME /data    //挂载使用
-df -Th
+# mkdir /data    //新建挂载目录
+# fdisk -l   
+# mkfs.xfs /dev/$DISK_NAME   //格式化
+# mount /dev/$DISK_NAME /data    //挂载使用
+# df -Th
