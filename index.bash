@@ -22,6 +22,9 @@ if [ $FORMAT_STATUS != "Y" ]; then
 echo "please rerun this shell script"
 exit 0
 fi
+
+# BOOT_SIZE,SWAP_SIZE,HOME_SIZE,ROOT_SIZE
+
 expect<<-EOF
 spawn fdisk /dev/$DISK_NAME
 expect {
@@ -29,7 +32,7 @@ expect {
 "default p" {send "p\n";exp_continue}
 "default 1" {send "1\n";exp_continue}
 "default 2048" {send "\n";exp_continue}
-"+/-sizes" {send "+10G\n";}
+"+/-size" {send "+$BOOT_SIZE\n";}
 }
 
 expect "m for help" {send "p\n";send "wq\n";exp_continue}   //p显示已建分区，wq保存配置，注意exp_continue，否则无法继续输入wq
