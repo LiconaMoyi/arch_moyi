@@ -37,10 +37,10 @@ case $FORMAT_SELECTION in
         SWAP_SIZE=$MemTotal
         # DISK_SIZE=$(fdisk -l | grep 'Disk /dev/$DISK_NAME' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g' | awk -F G '{print $1}')
         DISK_SIZE=$(fdisk -l | grep 'Disk /dev/sda' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g' | awk -F G '{print $1}')
-        DISK_UNIT=${$(fdisk -l | grep 'Disk /dev/sda' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g'):0-3}
+        DISK_INFO=$(fdisk -l | grep 'Disk /dev/sda' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g')
         echo "disk_size: $DISK_SIZE, disk_unit: $DISK_UNIT"
-        HOME_SIZE=`echo "$DISK_SIZE * 0.7" | bc`$DISK_UNIT
-        ROOT_SIZE=`echo "$DISK_SIZE * 0.3" | bc`$DISK_UNIT
+        HOME_SIZE=`echo "$DISK_SIZE * 0.7" | bc`${DISK_INFO:0-3}
+        ROOT_SIZE=`echo "$DISK_SIZE * 0.3" | bc`${DISK_INFO:0-3}
         echo "BOOT_SIZE: $BOOT_SIZE,"
         echo "SWAP_SIZE: $SWAP_SIZE,"
         echo "HOME_SIZE: $HOME_SIZE,"
