@@ -35,10 +35,10 @@ case $FORMAT_SELECTION in
         BOOT_SIZE="512M"
         MemTotal=$(cat /proc/meminfo |grep 'MemTotal' |awk -F : '{print $2}' |sed 's/^[ \t]*//g')
         SWAP_SIZE=$MemTotal
-        DISK_SIZE=$(fdisk -l | grep 'Disk /dev/$DISK_NAME' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g')
+        DISK_SIZE=$(fdisk -l | grep 'Disk /dev/$DISK_NAME' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g' | awk -F G '{print $1}')
         echo $DISK_SIZE
-        HOME_SIZE=`expr $DISK_SIZE \* 0.7`
-        ROOT_SIZE=`expr $DISK_SIZE \* 0.3`
+        HOME_SIZE = `expr $DISK_SIZE \* 0.7`
+        ROOT_SIZE = `expr $DISK_SIZE \* 0.3`
         echo "BOOT_SIZE: $BOOT_SIZE,"
         echo "SWAP_SIZE: $SWAP_SIZE,"
         echo "HOME_SIZE: $HOME_SIZE,"
@@ -49,20 +49,20 @@ case $FORMAT_SELECTION in
 esac
 # BOOT_SIZE,SWAP_SIZE,HOME_SIZE,ROOT_SIZE
 
-# expect<<-EOF
-# spawn fdisk /dev/$DISK_NAME
-# expect "m for help" {send "g\n";}
+expect<<-EOF
+spawn fdisk /dev/$DISK_NAME
+expect "m for help" {send "g\n";}
 
-# expect {
-# "m for help" {send "n\n";exp_continue}
-# "default p" {send "p\n";exp_continue}
-# "default 1" {send "1\n";exp_continue}
-# "default 2048" {send "\n";exp_continue}
-# "+/-size" {send "+$BOOT_SIZE\n";}
-# }
+expect {
+"m for help" {send "n\n";exp_continue}
+"default p" {send "p\n";exp_continue}
+"default 1" {send "1\n";exp_continue}
+"default 2048" {send "\n";exp_continue}
+"+/-size" {send "+$BOOT_SIZE\n";}
+}
 
-# expect "m for help" {send "p\n";send "wq\n";exp_continue}
-# EOF
+expect "m for help" {send "p\n";send "wq\n";exp_continue}
+EOF
 # mkdir /data    //新建挂载目录
 # fdisk -l   
 # mkfs.xfs /dev/$DISK_NAME   //格式化
