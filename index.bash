@@ -56,27 +56,31 @@ spawn fdisk /dev/$DISK_NAME
 expect "m for help" {send "g\n";}
 
 expect {
-"m for help" {send "n\n";exp_continue}
-"default p" {send "p\n";exp_continue}
-"default 1" {send "1\n";exp_continue}
-"default 2048" {send "\n";exp_continue}
-"+/-size" {send "+$BOOT_SIZE\n";}
-
-# "m for help" {send "n\n";exp_continue}
-# "Partition number" {send "3\n";exp_continue}
-# "First Sector" {send "\n";exp_continue}
-# "Last Sector" {send "+$HOME_SIZE\n";exp_continue}
-
-# "m for help" {send "n\n";exp_continue}
-# "Partition number" {send "4\n";exp_continue}
-# "First Sector" {send "\n";exp_continue}
-# "Last Sector" {send "+$ROOT_SIZE\n";exp_continue}
+  "m for help" {send "n\n";exp_continue}
+  "default p" {send "p\n";exp_continue}
+  "default 1" {send "1\n";exp_continue}
+  "default 2048" {send "\n";exp_continue}
+  "+/-size" {send "+$BOOT_SIZE\n";}
 }
 expect {
   "m for help" {send "n\n";exp_continue}
   "Partition number" {send "2\n";exp_continue}
-  "First Sector" {send "\n";exp_continue}
-  "Last Sector" {send "+$SWAP_SIZE\n";}
+  "First sector" {send "\n";exp_continue}
+  "Last sector" {send "+$SWAP_SIZE\n";}
+}
+
+expect {
+  "m for help" {send "n\n";exp_continue}
+  "Partition number" {send "3\n";exp_continue}
+  "First sector" {send "\n";exp_continue}
+  "Last sector" {send "+$HOME_SIZE\n";}
+}
+
+expect {
+  "m for help" {send "n\n";exp_continue}
+  "Partition number" {send "4\n";exp_continue}
+  "First sector" {send "\n";exp_continue}
+  "Last sector" {send "+$ROOT_SIZE\n";}
 }
 
 expect "m for help" {send "p\n";send "wq\n";exp_continue}
