@@ -35,7 +35,6 @@ case $FORMAT_SELECTION in
         BOOT_SIZE="512M"
         MemTotal=$(cat /proc/meminfo |grep 'MemTotal' |awk -F : '{print $2}' |sed 's/^[ \t]*//g')
         SWAP_SIZE=$MemTotal
-        # DISK_SIZE=$(fdisk -l | grep 'Disk /dev/$DISK_NAME' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g' | awk -F G '{print $1}')
         DISK_SIZE=$(fdisk -l | grep 'Disk /dev/sda' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g' | awk -F G '{print $1}')
         DISK_INFO=$(fdisk -l | grep 'Disk /dev/sda' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g')
         echo "disk_size: $DISK_SIZE, disk_unit: $DISK_UNIT"
@@ -50,22 +49,37 @@ case $FORMAT_SELECTION in
     *)
         echo "error"
 esac
-# BOOT_SIZE,SWAP_SIZE,HOME_SIZE,ROOT_SIZE
+BOOT_SIZE,SWAP_SIZE,HOME_SIZE,ROOT_SIZE
 
-# expect<<-EOF
-# spawn fdisk /dev/$DISK_NAME
-# expect "m for help" {send "g\n";}
+expect<<-EOF
+spawn fdisk /dev/$DISK_NAME
+expect "m for help" {send "g\n";}
 
-# expect {
-# "m for help" {send "n\n";exp_continue}
-# "default p" {send "p\n";exp_continue}
-# "default 1" {send "1\n";exp_continue}
-# "default 2048" {send "\n";exp_continue}
-# "+/-size" {send "+$BOOT_SIZE\n";}
-# }
+expect {
+"m for help" {send "n\n";exp_continue}
+"default p" {send "p\n";exp_continue}
+"default 1" {send "1\n";exp_continue}
+"default 2048" {send "\n";exp_continue}
+"+/-size" {send "+$BOOT_SIZE\n";exp_continue}
 
-# expect "m for help" {send "p\n";send "wq\n";exp_continue}
-# EOF
+"m for help" {send "n\n";exp_continue}
+"Partition number" {send "2\n";exp_continue}
+"First Sector" {send "\n";exp_continue}
+"Last Sector" {send "+$SWAP_SIZE\n";exp_continue}
+
+"m for help" {send "n\n";exp_continue}
+"Partition number" {send "2\n";exp_continue}
+"First Sector" {send "\n";exp_continue}
+"Last Sector" {send "+$HOME_SIZE\n";exp_continue}
+
+"m for help" {send "n\n";exp_continue}
+"Partition number" {send "2\n";exp_continue}
+"First Sector" {send "\n";exp_continue}
+"Last Sector" {send "+$ROOT_SIZE\n";exp_continue}
+}
+
+expect "m for help" {send "p\n";send "wq\n";exp_continue}
+EOF
 # mkdir /data    //新建挂载目录
 # fdisk -l   
 # mkfs.xfs /dev/$DISK_NAME   //格式化
