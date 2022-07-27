@@ -36,9 +36,9 @@ case $FORMAT_SELECTION in
         MemTotal=$(cat /proc/meminfo |grep 'MemTotal' |awk -F : '{print $2}' |sed 's/^[ \t]*//g')
         SWAP_SIZE=$MemTotal
         DISK_SIZE=$(fdisk -l | grep 'Disk /dev/$DISK_NAME' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g' | awk -F G '{print $1}')
-        echo $DISK_SIZE
-        HOME_SIZE=`expr $DISK_SIZE \* 0.7`
-        ROOT_SIZE=`expr $DISK_SIZE \* 0.3`
+        echo "$DISK_SIZE"
+        HOME_SIZE=`echo "$DISK_SIZE \* 0.7" | bc`
+        ROOT_SIZE=`echo "$DISK_SIZE \* 0.3" | bc`
         echo "BOOT_SIZE: $BOOT_SIZE,"
         echo "SWAP_SIZE: $SWAP_SIZE,"
         echo "HOME_SIZE: $HOME_SIZE,"
