@@ -66,7 +66,7 @@ expect {
   "m for help" {send "n\n";exp_continue}
   "Partition number" {send "2\n";exp_continue}
   "First sector" {send "\n";exp_continue}
-  "Last sector" {send "+$SWAP_SIZE\n";}
+  "Last sector" {send "+8G\n";}
 }
 
 expect {
