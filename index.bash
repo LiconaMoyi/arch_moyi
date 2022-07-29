@@ -106,7 +106,7 @@
 # mount $HOME_DEVICE /mnt/home
 # # replace domestic image
 # reflector -c China -a 5 --sort rate --save /etc/pacman.d/mirrorlist
-sudo pacman -Sy archlinux-keyring
+echo Y | sudo pacman -Sy archlinux-keyring
 pacstrap /mnt base base-devel linux linux-firmware
 
 genfstab -U /mnt >> /mnt/etc/fstab
