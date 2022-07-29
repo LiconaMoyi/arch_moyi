@@ -60,31 +60,27 @@ expect {
   "default p" {send "p\n";exp_continue}
   "default 1" {send "1\n";exp_continue}
   "default 2048" {send "\n";exp_continue}
-  "+/-size" {send "+$BOOT_SIZE\n";exp_continue}
-  "remove the signature" {send "Y\n";}
+  "+/-size" {send "+$BOOT_SIZE\n";}
 }
 expect {
   "m for help" {send "n\n";exp_continue}
   "Partition number" {send "2\n";exp_continue}
   "First sector" {send "\n";exp_continue}
-  "Last sector" {send "+8G\n";exp_continue}
-  "remove the signature" {send "Y\n";}
+  "Last sector" {send "+8G\n";}
 }
 
 expect {
   "m for help" {send "n\n";exp_continue}
   "Partition number" {send "3\n";exp_continue}
   "First sector" {send "\n";exp_continue}
-  "Last sector" {send "+$HOME_SIZE\n";exp_continue}
-  "remove the signature" {send "Y\n";}
+  "Last sector" {send "+$HOME_SIZE\n";}
 }
 
 expect {
   "m for help" {send "n\n";exp_continue}
   "Partition number" {send "4\n";exp_continue}
   "First sector" {send "\n";exp_continue}
-  "Last sector" {send "\n";exp_continue}
-  "remove the signature" {send "Y\n";}
+  "Last sector" {send "\n";}
 }
 
 expect "m for help" {send "p\n";send "wq\n";exp_continue}
