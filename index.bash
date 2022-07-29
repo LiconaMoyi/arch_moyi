@@ -104,8 +104,10 @@ mkdir -p /mnt/boot/EFI
 mount $BOOT_DEVICE /mnt/boot/EFI
 mkdir /mnt/home
 mount $HOME_DEVICE /mnt/home
-# mkdir /data    //新建挂载目录
-# fdisk -l   
-# mkfs.xfs /dev/$DISK_NAME   //格式化
-# mount /dev/$DISK_NAME /data    //挂载使用
-# df -Th
+# replace domestic image
+reflector -c China -a 5 --sort rate --save /etc/pacman.d/mirrorlist
+pacstrap /mnt base base-devel linux linux-firmware
+genfstab -U /mnt >> /mnt/etc/fstab
+# enter the new system
+arch-chroot /mnt
+
