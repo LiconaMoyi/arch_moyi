@@ -83,8 +83,8 @@ expect {
   "m for help" {send "n\n";exp_continue}
   "Partition number" {send "4\n";exp_continue}
   "First sector" {send "\n";exp_continue}
-  "Last sector" {send "\n";}
-  "remove the signature" {send "Y\n";exp_continue}
+  "Last sector" {send "\n";exp_continue}
+  "remove the signature" {send "Y\n";}
 }
 
 expect "m for help" {send "p\n";send "wq\n";exp_continue}
