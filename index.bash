@@ -85,6 +85,18 @@ expect {
 
 expect "m for help" {send "p\n";send "wq\n";exp_continue}
 EOF
+
+# @TODO get the disk partition by fdisk -l
+BOOT_DEVICE='/dev/${DISK_NAME}1'
+SWAP_DEVICE='/dev/${DISK_NAME}2'
+ROOT_DEVICE='/dev/${DISK_NAME}3'
+HOME_DEVICE='/dev/${DISK_NAME}4'
+
+mkfs.fat -F32 $ROOT_DEVICE /mnt
+mkdir -p /mnt/boot/EFI
+mount $BOOT_DEVICE /mnt/boot/EFI
+mkdir /mnt/home
+mount $HOME_DEVICE /mnt/home
 # mkdir /data    //新建挂载目录
 # fdisk -l   
 # mkfs.xfs /dev/$DISK_NAME   //格式化
