@@ -110,10 +110,7 @@
 # mount $HOME_DEVICE /mnt/home
 # # replace domestic image
 # reflector -c China -a 5 --sort rate --save /etc/pacman.d/mirrorlist
-expect<<-EOF
 pacstrap /mnt base base-devel linux linux-firmware
-expect "Do you want to delete it" {send "Y\n";exp_continue}
-EOF
 
 genfstab -U /mnt >> /mnt/etc/fstab
 # enter the new system
