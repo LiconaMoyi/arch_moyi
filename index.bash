@@ -92,7 +92,14 @@ SWAP_DEVICE=/dev/${DISK_NAME}2
 ROOT_DEVICE=/dev/${DISK_NAME}3
 HOME_DEVICE=/dev/${DISK_NAME}4
 
-mkfs.fat -F32 $ROOT_DEVICE /mnt
+# partition format
+mkfs.fat -F32 $BOOT_DEVICE
+mkswap $SWAP_DEVICE
+swapon $SWAP_DEVICE
+mkfs.ext4 $ROOT_DEVICE
+mkfs.ext4 $HOME_DEVICE
+# mount partition
+mount $ROOT_DEVICE /mnt
 mkdir -p /mnt/boot/EFI
 mount $BOOT_DEVICE /mnt/boot/EFI
 mkdir /mnt/home
