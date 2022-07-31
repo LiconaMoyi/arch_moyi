@@ -142,28 +142,30 @@ sync&>/dev/null
 sleep 2
 # BOOT_SIZE,SWAP_SIZE,HOME_SIZE,ROOT_SIZE
 echo "n
-1
 p
+1
 
-+10G
++512M
 n
 p
 2
 
-+10G
++8G
 n
 p
 3
 
-+10G
++20G
 n
 p
-4
+3
 
-+10G
-w" | fdisk $PARTDISK 
-# &>/dev/null
-# partprobe $PARTDISK
+
+t
+3
+82
+w"|fdisk $PARTDISK &>/dev/null
+partprobe $PARTDISK
 # sync &>/dev/null
 # sleep 2
 # mke2fs ${PARTDISK}1 &>/dev/null && echo "${PARTDISK}1 finished"
