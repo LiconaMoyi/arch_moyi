@@ -170,22 +170,22 @@ echo "n
 1
 p
 
-+$BOOT_SIZE
++10G
 n
 p
 2
 
-+$SWAP_SIZE
++10G
 n
 p
 3
 
-+$HOME_SIZE
++10G
 n
 p
 4
 
-+$ROOT_SIZE
++10G
 t
 4
 82
