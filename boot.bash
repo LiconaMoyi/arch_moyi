@@ -144,21 +144,22 @@ sleep 2
 echo 'n
 p
 1
-+${BOOT_SIZE}
 
++${BOOT_SIZE}
 n
 p
 2
-+${SWAP_SIZE}
 
++${SWAP_SIZE}
 n
 p
 3
-+${HOME_SIZE}
 
++${HOME_SIZE}
 n
 p
 4
+
 +${ROOT_SIZE}
 w' | fdisk $PARTDISK &>/dev/null
 partprobe $PARTDISK
