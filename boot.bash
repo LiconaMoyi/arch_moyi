@@ -164,7 +164,8 @@ p
 t
 3
 82
-w' | fdisk $PARTDISK &>/dev/null
+w' | fdisk $PARTDISK 
+# &>/dev/null
 partprobe $PARTDISK
 sync &>/dev/null
 sleep 2
