@@ -164,31 +164,31 @@ w' | fdisk $PARTDISK &>/dev/null
 partprobe $PARTDISK
 sync &>/dev/null
 sleep 2
-mke2fs ${PARTDISK}1 &>/dev/null && echo "${PARTDISK}1finished"
+mke2fs ${PARTDISK}1 &>/dev/null && echo "${PARTDISK}1 finished"
 sync &>/dev/null
 sleep 2
-mke2fs ${PARTDISK}2 &>/dev/null && echo "${PARTDISK}2finished"
+mke2fs ${PARTDISK}2 &>/dev/null && echo "${PARTDISK}2 finished"
 ssync &>/dev/null
 sleep 2
-mkswap ${PARTDISK}3 &>/dev/null && echo "${PARTDISK}3finished"
+mkswap ${PARTDISK}3 &>/dev/null && echo "${PARTDISK}3 finished"
 sync &>/dev/null
 sleep 2
-mkswap ${PARTDISK}4 &>/dev/null && echo "${PARTDISK}3finished"
+mkswap ${PARTDISK}4 &>/dev/null && echo "${PARTDISK}3 finished"
 sync &>/dev/null
 sleep 2
 
 # partition format
-mkfs.fat -F32 $BOOT_DEVICE
-mkswap $SWAP_DEVICE
-swapon $SWAP_DEVICE
-mkfs.ext4 $ROOT_DEVICE
-mkfs.ext4 $HOME_DEVICE
+mkfs.fat -F32 ${PARTDISK}1
+mkswap ${PARTDISK}2
+swapon ${PARTDISK}2
+mkfs.ext4 ${PARTDISK}3
+mkfs.ext4 ${PARTDISK}4
 # mount partition
-mount $ROOT_DEVICE /mnt
+mount ${PARTDISK}4 /mnt
 mkdir -p /mnt/boot/EFI
-mount $BOOT_DEVICE /mnt/boot/EFI
+mount ${PARTDISK}2 /mnt/boot/EFI
 mkdir /mnt/home
-mount $HOME_DEVICE /mnt/home
+mount ${PARTDISK}3 /mnt/home
 # replace domestic image
 reflector -c China -a 5 --sort rate --save /etc/pacman.d/mirrorlist
 echo Y | sudo pacman -Sy archlinux-keyring
