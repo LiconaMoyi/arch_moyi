@@ -145,22 +145,25 @@ echo 'n
 p
 1
 
-+${BOOT_SIZE}
++$BOOT_SIZE
 n
 p
 2
 
-+8G
++$SWAP_SIZE
 n
 p
 3
 
-+${HOME_SIZE}
++$HOME_SIZE
 n
 p
 4
 
-+${ROOT_SIZE}
++$ROOT_SIZE
+t
+3
+82
 w' | fdisk $PARTDISK &>/dev/null
 partprobe $PARTDISK
 sync &>/dev/null
