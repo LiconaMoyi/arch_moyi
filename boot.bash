@@ -191,9 +191,17 @@ echo Y | mkfs.ext4 ${PARTDISK}3
 echo Y | mkfs.ext4 ${PARTDISK}4
 # mount partition
 mount ${PARTDISK}4 /mnt
-mkdir -p /mnt/boot/EFI
+if [ -d /mnt/boot/EFI  ];then
+  echo /mnt/boot/EFI exist
+else
+  mkdir -p /mnt/boot/EFI
+fi
 mount ${PARTDISK}1 /mnt/boot/EFI
-mkdir /mnt/home
+if [ -d /mnt/home  ];then
+  echo /mnt/home exist
+else
+  mkdir /mnt/home
+fi
 mount ${PARTDISK}3 /mnt/home
 # replace domestic image
 reflector -c China -a 5 --sort rate --save /etc/pacman.d/mirrorlist
