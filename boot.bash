@@ -164,22 +164,48 @@ p
 t
 4
 82
-w'|fdisk $PARTDISK &>/dev/null
-partprobe $PARTDISK
-sync &>/dev/null
-sleep 2
-mke2fs ${PARTDISK}1 &>/dev/null && echo "${PARTDISK}1 finished"
-sync &>/dev/null
-sleep 2
-mke2fs ${PARTDISK}2 &>/dev/null && echo "${PARTDISK}2 finished"
-ssync &>/dev/null
-sleep 2
-mkswap ${PARTDISK}3 &>/dev/null && echo "${PARTDISK}3 finished"
-sync &>/dev/null
-sleep 2
-mkswap ${PARTDISK}4 &>/dev/null && echo "${PARTDISK}3 finished"
-sync &>/dev/null
-sleep 2
+w'
+sleep 6
+echo 'n
+1
+p
+
++$BOOT_SIZE
+n
+p
+2
+
++$SWAP_SIZE
+n
+p
+3
+
++$HOME_SIZE
+n
+p
+4
+
++$ROOT_SIZE
+t
+4
+82
+w'|fdisk $PARTDISK 
+# &>/dev/null
+# partprobe $PARTDISK
+# sync &>/dev/null
+# sleep 2
+# mke2fs ${PARTDISK}1 &>/dev/null && echo "${PARTDISK}1 finished"
+# sync &>/dev/null
+# sleep 2
+# mke2fs ${PARTDISK}2 &>/dev/null && echo "${PARTDISK}2 finished"
+# ssync &>/dev/null
+# sleep 2
+# mkswap ${PARTDISK}3 &>/dev/null && echo "${PARTDISK}3 finished"
+# sync &>/dev/null
+# sleep 2
+# mkswap ${PARTDISK}4 &>/dev/null && echo "${PARTDISK}3 finished"
+# sync &>/dev/null
+# sleep 2
 
 # partition format
 mkfs.fat -F32 ${PARTDISK}1
