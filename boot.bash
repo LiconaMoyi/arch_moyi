@@ -142,8 +142,8 @@ sync&>/dev/null
 sleep 2
 # BOOT_SIZE,SWAP_SIZE,HOME_SIZE,ROOT_SIZE
 echo 'n
-p
 1
+p
 
 +$BOOT_SIZE
 n
@@ -162,10 +162,9 @@ p
 
 +$ROOT_SIZE
 t
-3
+4
 82
-w' | fdisk $PARTDISK 
-# &>/dev/null
+w'|fdisk $PARTDISK &>/dev/null
 partprobe $PARTDISK
 sync &>/dev/null
 sleep 2
