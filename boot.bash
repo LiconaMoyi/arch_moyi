@@ -210,5 +210,6 @@ pacstrap /mnt base base-devel linux linux-firmware
 
 genfstab -U /mnt >> /mnt/etc/fstab
 # enter the new system
-arch-chroot /mnt
 cp setup.bash /mnt
+arch-chroot /mnt
+
