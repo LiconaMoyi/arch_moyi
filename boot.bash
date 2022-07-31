@@ -167,17 +167,17 @@ echo "n
 p
 1
 
-+${BOOT_SIZE}
++512M
 n
 p
 2
 
-+${SWAP_SIZE}
++8G
 n
 p
 3
 
-+${HOME_SIZE}
++70G
 n
 p
 3
