@@ -136,7 +136,7 @@ for DISK in `mount | grep "/dev/[sh]d[a-z]" | awk '{print $1}'`;do
 fuser -km $DISK
 umount $DISK && echo "$DISK umount ok"
 done
-sudo swapoff $PARTDISK2
+swapoff $PARTDISK2
 
 dd if=/dev/zero of=$PARTDISK bs=512 count=1&>/dev/null
 partprobe $PARTDISK
