@@ -187,8 +187,8 @@ partprobe $PARTDISK
 mkfs.fat -F32 ${PARTDISK}1
 mkswap ${PARTDISK}2
 swapon ${PARTDISK}2
-mkfs.ext4 ${PARTDISK}3
-mkfs.ext4 ${PARTDISK}4
+echo Y | mkfs.ext4 ${PARTDISK}3
+echo Y | mkfs.ext4 ${PARTDISK}4
 # mount partition
 mount ${PARTDISK}4 /mnt
 mkdir -p /mnt/boot/EFI
