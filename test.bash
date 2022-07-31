@@ -1,5 +1,4 @@
 #!/bin/bash
-#
 
 fdisk -l | grep "^Disk /dev/[sh]d[a-z]" | awk  '{print $2}' | sed "s@:@@g"
 read -p "Your choice PARTDISK above:" PARTDISK
@@ -7,7 +6,7 @@ if [ $PARTDISK == quit ];then
   echo "quit..."
   exit 0
 fi
-until fdisk -l | grep -o "^Disk /dev/[sh]d[a-z]" | grep "^Disk ${PARTDISK}$"&>/dev/null ;do
+until fdisk -l | grep -o "^Disk /dev/[sh]d[a-z]" | grep "^Disk ${PARTDISK}$" &> /dev/null ;do
   read -p "wrong choice Your choice again:" PARTDISK
 done
   read -p "Will destroy all data continue[y/n]:" CHOICE
@@ -15,7 +14,7 @@ until [ $CHOICE == "y" -o $CHOICE == "n" ];do
   read -p "Will destroy all data continue[y/n]:" CHOICE
 done
 [ $CHOICE == n ] && echo "quit..." && exit 0;
-for DISK in `mount | grep "/dev/sdb" | awk '{print $1}'`;do
+for DISK in `mount | grep "/dev/[sh]d[a-z]" | awk '{print $1}'`;do
 fuser -km $DISK
 umount $DISK && echo "$DISK umount ok"
 done
