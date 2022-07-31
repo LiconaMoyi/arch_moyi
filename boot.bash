@@ -164,6 +164,31 @@ p
 t
 4
 82
+w"
+sleep 6
+echo "n
+1
+p
+
++$BOOT_SIZE
+n
+p
+2
+
++$SWAP_SIZE
+n
+p
+3
+
++$HOME_SIZE
+n
+p
+4
+
++$ROOT_SIZE
+t
+4
+82
 w" | fdisk $PARTDISK 
 # &>/dev/null
 # partprobe $PARTDISK
