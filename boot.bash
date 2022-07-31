@@ -145,17 +145,17 @@ echo "n
 p
 1
 
-+512M
++${BOOT_SIZE}
 n
 p
 2
 
-+8G
++${SWAP_SIZE}
 n
 p
 3
 
-+20G
++${HOME_SIZE}
 n
 p
 3
@@ -190,7 +190,7 @@ mkfs.ext4 ${PARTDISK}4
 # mount partition
 mount ${PARTDISK}4 /mnt
 mkdir -p /mnt/boot/EFI
-mount ${PARTDISK}2 /mnt/boot/EFI
+mount ${PARTDISK}1 /mnt/boot/EFI
 mkdir /mnt/home
 mount ${PARTDISK}3 /mnt/home
 # replace domestic image
