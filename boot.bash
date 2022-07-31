@@ -161,34 +161,6 @@ p
 4
 
 +10G
-t
-4
-82
-w"
-sleep 6
-echo "n
-1
-p
-
-+10G
-n
-p
-2
-
-+10G
-n
-p
-3
-
-+10G
-n
-p
-4
-
-+10G
-t
-4
-82
 w" | fdisk $PARTDISK 
 # &>/dev/null
 # partprobe $PARTDISK
