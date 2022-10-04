@@ -1,6 +1,6 @@
 ln -sf /usr/share/zoneinfo/Asia/Shanghai /etc/localtime
 hwclock --systohc
-echo Y | sudo pacman -Sy vim expect
+echo Y | sudo pacman -Sy vim expect git
 sed -i 's/#en_US.UTF-8/en_US.UTF-8/g' /etc/locale.gen
 sed -i 's/#zh_CN.UTF-8/zh_CN.UTF-8/g' /etc/locale.gen
 locale-gen
