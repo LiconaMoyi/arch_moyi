@@ -29,10 +29,6 @@ echo "add group successfully"
 echo "input the user name you want to use:"
 read USER_NAME
 useradd $USER_NAME -g $GROUP_NAME -m
-echo "input the user password you want to use:"
-read USER_PASSWORD
-expect<<-EOF
-passwd $USER_NAME
-expect "New password" {send "${USER_PASSWORD}\n";exp_continue}
-expect "Retype new password" {send "${USER_PASSWORD}\n";}
-EOF
+echo "set ${USER_NAME} password"
+passwd ${USER_NAME}
+sed -i '/^root ALL=(ALL:ALL) ALL/a licona ALL=(ALL:ALL) ALL' /etc/sudoers
