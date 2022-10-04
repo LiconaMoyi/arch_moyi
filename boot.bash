@@ -1,6 +1,6 @@
 # import system variables
 source config.bash
-source utils/base.bash
+source utils/common.bash
 
 network
 if [ $? != "1" ]; then
@@ -10,14 +10,16 @@ exit 0
 fi
 
 fdisk -l | grep "^Disk /dev/[sh]d[a-z]" | awk  '{print $2}' | sed "s@:@@g"
-read -p "Your choice PARTDISK above:" PARTDISK
+read -p "Your choice PARTDISK above(quit to exit):" PARTDISK
 if [ $PARTDISK == quit ];then
   echo "quit..."
   exit 0
 fi
+
+echo "$PARTDISK"
 echo "select the method you want to use to format disk:
 1:use config file, 
-2:use the system portion-BOOT:512M, SWAP:memory capacity, HOME:70% remaning, ROOT:30% remaining):"
+2:use the system portion-BOOT:512M, SWAP:memory capacity, HOME:70% remaning, ROOT:30% remaining:"
 read FORMAT_SELECTION
 
 case $FORMAT_SELECTION in
