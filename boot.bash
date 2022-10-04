@@ -9,7 +9,7 @@ echo "please connect to network first"
 exit 0
 fi
 
-fdisk -l | grep "^Disk /dev/[sh]d[a-z]" | awk  '{print $2}' | sed "s@:@@g"
+fdisk -l | grep "^Disk /dev/[sh]d[a-z]\|^Disk /dev/nvme" | awk  '{print $2}' | sed "s@:@@g"
 read -p "Your choice PARTDISK above(quit to exit):" PARTDISK
 echo "$PARTDISK"
 if [ $PARTDISK == quit ];then
@@ -45,7 +45,7 @@ case $FORMAT_SELECTION in
         echo "error"
         exit 0
 esac
-until fdisk -l | grep -o "^Disk /dev/[sh]d[a-z]" | grep "^Disk ${PARTDISK}$" &> /dev/null ;do
+until fdisk -l | grep -o "^Disk /dev/[sh]d[a-z]\|^Disk /dev/nvme" | grep "^Disk ${PARTDISK}$" &> /dev/null ;do
   read -p "wrong choice Your choice again:" PARTDISK
 done
   read -p "Will destroy all data continue[y/n]:" CHOICE
@@ -53,7 +53,7 @@ until [ $CHOICE == "y" -o $CHOICE == "n" ];do
   read -p "Will destroy all data continue[y/n]:" CHOICE
 done
 [ $CHOICE == n ] && echo "quit..." && exit 0;
-for DISK in `mount | grep "/dev/[sh]d[a-z]" | awk '{print $1}'`;do
+for DISK in `mount | grep "/dev/[sh]d[a-z]\|^Disk /dev/nvme" | awk '{print $1}'`;do
 fuser -km $DISK
 umount $DISK && echo "$DISK umount ok"
 done
