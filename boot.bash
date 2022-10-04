@@ -28,8 +28,8 @@ case $FORMAT_SELECTION in
         ;;
     2)
         BOOT_SIZE="512M"
-        MemTotal=$(cat /proc/meminfo |grep 'MemTotal' |awk -F : '{print $2}' |sed 's/^[ \t]*//g')
-        SWAP_SIZE=$MemTotal | awk -F' ' '{print $1"K"}'
+        MemTotal=$(cat /proc/meminfo |grep 'MemTotal' |awk -F : '{print $2}' |sed 's/^[ \t]*//g' | awk -F' ' '{print $1"K"}')
+        SWAP_SIZE=$MemTotal
         DISK_SIZE=$(fdisk -l | grep "Disk ${PARTDISK}" | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g' | awk -F G '{print $1}')
         DISK_INFO=$(fdisk -l | grep "Disk ${PARTDISK}" | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g')
         echo "disk_size: $DISK_SIZE, disk_unit: $DISK_UNIT"
