@@ -57,7 +57,7 @@ for DISK in `mount | grep "/dev/[sh]d[a-z]" | awk '{print $1}'`;do
 fuser -km $DISK
 umount $DISK && echo "$DISK umount ok"
 done
-swapoff $(swapon | grep "$PARTDISK*" | awk -F' ' '{print $1}')
+swapoff $(swapon | grep "$PARTDISK" | awk -F' ' '{print $1}')
 
 dd if=/dev/zero of=$PARTDISK bs=512 count=1&>/dev/null
 partprobe $PARTDISK
