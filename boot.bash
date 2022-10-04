@@ -78,7 +78,7 @@ n
 p
 3
 
-+${ROOT_SIZE}
++${HOME_SIZE}
 n
 p
 
