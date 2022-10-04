@@ -11,12 +11,12 @@ fi
 
 fdisk -l | grep "^Disk /dev/[sh]d[a-z]" | awk  '{print $2}' | sed "s@:@@g"
 read -p "Your choice PARTDISK above(quit to exit):" PARTDISK
+echo "$PARTDISK"
 if [ $PARTDISK == quit ];then
   echo "quit..."
   exit 0
 fi
 
-echo "$PARTDISK"
 echo "select the method you want to use to format disk:
 1:use config file, 
 2:use the system portion-BOOT:512M, SWAP:memory capacity, HOME:70% remaning, ROOT:30% remaining:"
@@ -30,8 +30,8 @@ case $FORMAT_SELECTION in
         BOOT_SIZE="512M"
         MemTotal=$(cat /proc/meminfo |grep 'MemTotal' |awk -F : '{print $2}' |sed 's/^[ \t]*//g')
         SWAP_SIZE=$MemTotal
-        DISK_SIZE=$(fdisk -l | grep 'Disk /dev/sda' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g' | awk -F G '{print $1}')
-        DISK_INFO=$(fdisk -l | grep 'Disk /dev/sda' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g')
+        DISK_SIZE=$(fdisk -l | grep 'Disk ${PARTDISK}' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g' | awk -F G '{print $1}')
+        DISK_INFO=$(fdisk -l | grep 'Disk ${PARTDISK}' | awk -F , '{print $1}' | awk -F : '{print $2}' | sed 's/[ ]*//g')
         echo "disk_size: $DISK_SIZE, disk_unit: $DISK_UNIT"
         HOME_SIZE=`echo "$DISK_SIZE * 0.7" | bc`${DISK_INFO:0-3}
         ROOT_SIZE=`echo "$DISK_SIZE * 0.3" | bc`${DISK_INFO:0-3}
@@ -43,6 +43,7 @@ case $FORMAT_SELECTION in
         ;;
     *)
         echo "error"
+        exit 0
 esac
 until fdisk -l | grep -o "^Disk /dev/[sh]d[a-z]" | grep "^Disk ${PARTDISK}$" &> /dev/null ;do
   read -p "wrong choice Your choice again:" PARTDISK
