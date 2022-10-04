@@ -57,7 +57,7 @@ for DISK in `mount | grep "/dev/[sh]d[a-z]" | awk '{print $1}'`;do
 fuser -km $DISK
 umount $DISK && echo "$DISK umount ok"
 done
-# swapoff $PARTDISK2
+swapoff $(swapon | grep "$PARTDISK*" | awk -F' ' '{print $1}')
 
 dd if=/dev/zero of=$PARTDISK bs=512 count=1&>/dev/null
 partprobe $PARTDISK
@@ -84,6 +84,11 @@ p
 4
 
 +${HOME_SIZE}
+
+
+t
+3
+82
 w"|fdisk $PARTDISK &>/dev/null
 partprobe $PARTDISK
 
