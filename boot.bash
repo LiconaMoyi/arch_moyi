@@ -81,14 +81,8 @@ p
 +${ROOT_SIZE}
 n
 p
-4
-
-+${HOME_SIZE}
 
 
-t
-3
-82
 w"|fdisk $PARTDISK &>/dev/null
 partprobe $PARTDISK
 
